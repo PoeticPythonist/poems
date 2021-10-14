@@ -1,0 +1,147 @@
+<!doctype html>
+<html>
+    <head>
+        <title>presentation</title>
+        <meta charset='utf-8'/>
+        <link rel="stylesheet" type="text/css" href="./talk.html_files/github-markdown.css">
+        <style>
+            .markdown-body {
+                box-sizing: border-box;
+                min-width: 200px;
+                max-width: 980px;
+                margin: 0 auto;
+                padding: 45px;
+            }
+        </style>
+        <script>
+            window.onload = function() {
+                if (document.querySelector("script[type=\"math/tex; mode=display\"]") !== null) {
+                    var mathjax = document.createElement("script");
+                    mathjax.src = "https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS_HTML";
+                    document.head.appendChild(mathjax);
+                }
+                if (document.getElementsByTagName("code").length !== 0) {
+                    var highlight = document.createElement("script");
+                    var highlightcss = document.createElement("link");
+                    highlight.src = "http://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.2.0/highlight.min.js";
+                    highlightcss.rel = "stylesheet";
+                    highlightcss.href = "http://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.2.0/styles/github.min.css";
+                    highlight.onload = function() {hljs.initHighlighting();};
+                    document.head.appendChild(highlight);
+                    document.head.appendChild(highlightcss);
+                }
+            }
+        </script>
+    </head>
+    <body>
+        <article class="markdown-body">
+            <h1 id="presentation">presentation</h1>
+<p>(1)
+Conklin in 2021 publishes a paper with the title <em>Mining contour sequences for significant closed patterns</em>.</p>
+<p>(2)
+Introduction </p>
+<p>(3)
+The general idea of this paper is to use a patern discovery method in order to find <em>interesting</em> patterns, not just patterns. </p>
+<p>A way to mining these <em>interesting</em> patterns among others is via finding which of these are <em>closed</em> and <em>significant</em>. 
+Studing music in a corpus with musical pieces, we define patterns in 2 levels:
+the Intra-opus patterns level and the Inter-Opus patterns level.</p>
+<p>(4)
+Intra-opus patterns are the patterns that are repeated within single pieces, AND
+Inter-opus patterns are the patterns that occurring in different pieces.</p>
+<p>(5)
+Intra-opus pattern discovery helps music analysis because it extracts the structure of a piece.
+Intra-opus pattern discovery helps music generation because gives us the ability to use the extructed structure in order to use it as a template to the new generated music material.</p>
+<p>(6)
+Conklin&#39;s method is used to extract intra-opus pattern of a corpus that contain pieces of church music of Mozarabic rite.</p>
+<p>As you can see, this musical notation is similar to Gregorian chant and Palaio-Byzantine music (from my point of view). This notation is characterised as pitch-unreadable or &quot;adiastematic&quot;, because the melodic information that the neumes carries is not clear. We do not know the exact interval size that the neumes indicate. We know only the abstract contour information.</p>
+<p>(7)
+Specifically, this kind of information can be capture via a categorical feature that defines 5 different values to 5 different characters:
+h, l, e, b, p, and o.</p>
+<p>h indicates that this note is higher than the previous one.
+l indicates that this note is lower than the previous one.
+e indicates that this note has the same pitch to the previous one.
+b indicates that this note is higher or equal than the previous one.
+p indicates that this note is lower or equal than the previous one.
+AND finally,
+o indicates that this neume expresses an note with unclear relational pitch information. So, we do not know if the melody goes up, or down or stay to the same note.</p>
+<p>(8)
+In this notation we can find sequences of neumes that for sake of simplicity we can say that works like inter-opus patterns. Theses patterns are called Formulae. Mind that formulae is a notational characteristic.</p>
+<p>There is a consesus about the indicated music of the formulae. Researchers suggest that a formulae indicates the same melodic information in all occurences. So, must be trancribe in the same way, creating intra-opus patterns.</p>
+<p>(9)
+Until Conklin and Maessen paper published in 2019, the Intra-opus patterns are defined manually, by hand.</p>
+<p>This paper tries to tackle the problem of automatic extraction of Intra-opus patterns.</p>
+<p>(10)
+This paper develops an intra-opus pattern discovery method AND
+reports on the precision and recall achieved by this method on a corpus of 22 annotated chant templates.</p>
+<p>(11)
+...(DO NOT TALK FOR 3 SECONDS)...</p>
+<p>(12)
+Starting the pattern discovery we have to say that
+In this article, we treat music as a sequence of characters.
+So, a musical piece is a string of characters.</p>
+<p>(13)
+And an instance ξ in a sequence is a contiguous subsequence that exactly matches the pattern.
+With &quot;en of ξ&quot; is the total number of instances in the sequence
+AND
+ξ between vertical lines symbolises the length, i.e. the number of charachters without dashses. Dashses is used in order to render the characters to volpiano transcription.</p>
+<p>ξ prime is Supersequence οf ξ
+if and only if ξ prime
+can be transcribe as the concatenation of strings &quot;x, ξ, and y&quot;,</p>
+<p>where the plus mathematical symbol is operand of the concatenate operation of two strings.</p>
+<p>(14)
+Fastest algorithm for sequential pattern mining employ a refinement tree search, with each pattern associated with its instance list. Each refinement extends a pattern to the right and produces a more specific pattern.
+As a more specific pattern I understand that means a pattern with shorter length.</p>
+<p>(15)
+Increasing the acceptable total count that each pattern must have (in order to characterise as pattern) the number of patterns is decreasing.
+This is a very usefull property </p>
+<p>(16)
+Nevertheless...
+Even with a high minimum threshold on total count, a huge number of patterns can exist in a given sequence.
+So, taking an absolute number as the threshold of characterising a candidate pattern as pattern it is not good idea because we will see that the set of patterns are very large.
+And this method is very naïve.</p>
+<p>For this reason, it is necessary to restrict this space. So, we prune the original space of patterns two times. First using a structural method. AND Secondly using a statistical method </p>
+<p>The first restriction is handled by closed patterns.
+The second by significant patterns.</p>
+<p>(17)
+Before we explain these two methods, it is important to observe that
+For inter-opus pattern discovery, usually the shortest, most general patterns are desired.</p>
+<p>For intra-opus pattern discovery, closed patterns are more appropriate as they cover the most musical material possible without becoming overly specialized.</p>
+<p>(18)
+So, Let&#39;s see which patterns are closed</p>
+<p>(19) An intra-opus closed pattern 𝜉 is a pattern for which
+There exists no other pattern 𝜉 prime which is supersequecen of ξ and simutanuesly 𝜉 prime have the same number of occerence with ξ.</p>
+<p>(20)
+For example,
+Here we have the number of occerence of the pattern &quot;lohe&quot; of a sequence with lenght of characters 57.
+Starting with the trivial case with the empty pattern (i.e. a pattern with zero lenght) we define the number of occernce of the empty pattern equal to the lenght of the sequence.</p>
+<p>In order to see if the empty pattern is closed we have to examine all the super sequences of the empty pattern. These super sequences are the distinct characters.</p>
+<p>And, as we can see, all the supersequences of the empty pattern do not have the same times of occerences. So, the empty pattern is a closed pattern, (21) and we symbolise it with a circle.</p>
+<p>(22)
+Doing the same thing with the patterns that have lenght equal to one,
+&quot;l&quot; pattern is closed because the supersequence pattern &quot;lo&quot; does not have the same number of occernces... The same thing happening with &quot;o&quot; pattern, so &quot;o&quot; pattern is closed too.</p>
+<p>But,
+The super sequecen pattern &quot;oh&quot; of paatten &quot;h&quot; have the same number of occernces, so &quot;h&quot; pattern is not closed. And we symbolises with square.
+(23)
+on the other side we can see that &quot;e&quot; pattern is closed.</p>
+<p>(24,25,26)
+doing the same thing we can find all the closed patterns.</p>
+<p>The insight thing...
+We want the maximum lenght of each pattern SO THAT each supersequence of these patterns have less number of occerences.</p>
+<p>(27)
+Having mined the closed patterns from the set of all the patterns we have to prune the set of closed patterns. This will be done via a statistical method. We want to establish a threshold of statistical significance to the patterns in order to mine some of the them.</p>
+<p>(28)
+Let&#39;s see here a visualisation of Corpus with some musical pieces. Each musical piece is a sequence of characters.
+For example we examine a pattern ξ in a musical piece with title &quot;a_sequence&quot;. This sequence contains 40 characters, so, the lenght (l) of this musical piece is 40.
+There is a pattern ξ with 7 characters lenght that occure 2 times in this musical piece.
+In order to find the significane of this pattern in this sequence we have to compute the Expected Total Count.</p>
+<p>(29)
+The the Expected Total Count of pattern ξ in this musical piece, balancing (or weighting) the times of occurence of ξ in this specific sequence with the times of occurence of ξ in the whole corpus (taking into concideration all musical piece of the corpus). The first pernethesis expresses the first term of this weighting, while the Product Notational thing expresses the second term of the weighting. As you can see into the hooks we have all the times of occurence of the sub-sequences of the pattern ξ as they appear in our imaginary example.</p>
+<p>After all this thing, lamda (i.e. Expected total count) is capable of being calculated, AND
+is equal to this very small number.</p>
+<p>Now, we wnat a threshold in order to define which of these patterns are significant. In order to do that we will use the Poisson distribution. </p>
+<p>(30)
+Remembering, a Poisson Process is a model for a series of discrete event where the average time between events is known, but the exact timing of events is random.</p>
+
+        </article>
+    </body>
+</html>
